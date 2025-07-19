@@ -60,8 +60,9 @@
 </head>
 <body>
   <div class="container">
-    <h3>HẸ HẸ HẸ</h3>
-    <h4 class="text-center text-danger">RÚT TIỀN</h4>
+    <h3>
+      <h4 class="text-center text-danger">155 XUÂN ĐỈNH</h4>
+    </h3>
     
     <div class="input-group mt-3">
       <input type="text" id="urlInput" class="form-control" placeholder="Nhập link URL">
@@ -71,28 +72,20 @@
     <h5 class="mt-3">Chọn loại Gift:</h5>
     <div class="gift-options">
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="giftOption" value="DOANH" id="giftDoanh">
-        <label class="form-check-label" for="giftDoanh">DOANH</label>
+        <input class="form-check-input" type="radio" name="giftOption" value="100" id="gift100">
+        <label class="form-check-label" for="gift100">Gift 100</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="giftOption" value="DUC" id="giftDuc">
-        <label class="form-check-label" for="giftDuc">DUC</label>
+        <input class="form-check-input" type="radio" name="giftOption" value="500" id="gift500">
+        <label class="form-check-label" for="gift500">Gift 500</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="giftOption" value="THUY" id="giftThuy">
-        <label class="form-check-label" for="giftThuy">THUY</label>
+        <input class="form-check-input" type="radio" name="giftOption" value="1000" id="gift1000">
+        <label class="form-check-label" for="gift1000">Gift 1000</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="giftOption" value="MAI_ANH" id="giftMaiAnh" checked>
-        <label class="form-check-label" for="giftMaiAnh">MAI_ANH</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="giftOption" value="THANG" id="giftThang">
-        <label class="form-check-label" for="giftThang">THANG</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="giftOption" value="TOAN" id="giftToan">
-        <label class="form-check-label" for="giftToan">TOANH</label>
+        <input class="form-check-input" type="radio" name="giftOption" value="recheck" id="checkLink" checked>
+        <label class="form-check-label" for="checkLink">Check lại Link này</label>
       </div>
     </div>
     
@@ -101,65 +94,61 @@
       <input type="text" id="generatedLink" class="form-control" placeholder="Link động sẽ hiển thị ở đây" readonly>
       <button class="btn btn-outline-secondary copy-btn" onclick="copyToClipboard()">Copy</button>
     </div>
-    
-    <button class="btn btn-secondary btn-custom" onclick="generateShortcut(100)">Add shortcut gift 100</button>
-    <button class="btn btn-secondary btn-custom" onclick="generateShortcut(500)">Add shortcut gift 500</button>
-    <button class="btn btn-secondary btn-custom" onclick="generateShortcut(1000)">Add shortcut gift 1000</button>
-    <button class="btn btn-secondary btn-custom" onclick="generateShortcut(60)">Add Auto 60p</button>
-    <button class="btn btn-secondary btn-custom" onclick="generateShortcut(30)">Add Auto 30p</button>
-    <button class="btn btn-secondary btn-custom" onclick="generateShortcut(1)">Download Data</button>
-
-    <div class="text-center mt-3">
+    <div class="text-center">
       <img src="https://lh3.googleusercontent.com/d/1GxmUU_ZlR_Vl7uW-maIGQPO6-rEzVKpE=w1000" 
-           alt="Ảnh từ Google Drive" class="img-fluid">
-    </div>
+     alt="Ảnh từ Google Drive" class="img-fluid">
+  </div>
   </div>
   
   <script>
-    let giftLinks = {
-      100: "https://www.icloud.com/shortcuts/14d9d2b086eb4de686dc004906a05818",
-      500: "https://www.icloud.com/shortcuts/b905472fa9714b1e94c8675b05e572fc",
-      1000: "https://www.icloud.com/shortcuts/4d0fd4c37c90448dbad3fa413d49318a",
-      60: "https://www.icloud.com/shortcuts/17b0a2589825439aa71e7bf1d4fd7d43",
-      30: "https://www.icloud.com/shortcuts/41005f1838684245b4d256da082532a9",
-      1: "https://kntios.github.io/assets/data.zip"
-    };
 
-    let urlAppsScript = "https://script.google.com/macros/s/AKfycbziS4Rvab2Dnp_PjAzuVGzT_2wf68L1XqcWMbsSiANLvPgHB0NrUKJJB5Vgi0IczIkV/exec";
-
+    let urlAppsScript = "https://script.google.com/macros/s/AKfycbxH-rGNYyafDRJJ8bPA_-qlhpCHXd3MGzUWYvJ4MuLUBfYjoIR1zSxRrHTcJl-TwpwTIw/exec";
+    //===================================================================================================
     function saveData() {
       var urlInput = document.getElementById("urlInput");
+  
       if (!urlInput) {
-        alert("Không tìm thấy ô nhập URL!");
-        return;
+          alert("Không tìm thấy ô nhập URL!");
+      } else {
+          var url = urlInput.value.trim();
+  
+          if (!url) {
+              alert("Vui lòng nhập URL!");
+          } else {
+              var selectedGift = document.querySelector('input[name="giftOption"]:checked');
+  
+              if (!selectedGift) {
+                  alert("Vui lòng chọn một loại Gift!");
+              } else {
+                  var giftOption = selectedGift.value;
+                  let requestUrl;
+  
+                  // Tạo requestUrl tùy thuộc vào loại Gift đã chọn
+                  if (giftOption === "100") {
+                      requestUrl = `${urlAppsScript}?gift_100=${url}`;
+                  } else if (giftOption === "500") {
+                      requestUrl = `${urlAppsScript}?gift_500=${url}`;
+                  } else if (giftOption === "1000") {
+                      requestUrl = `${urlAppsScript}?gift_1000=${url}`;
+                  } else if (giftOption === "recheck") {
+                      requestUrl = `${urlAppsScript}?check_loi=${url}`;
+                  }
+  
+                  // Gửi yêu cầu tới Apps Script
+                  fetch(requestUrl)
+                      .then(response => response.text())
+                      .then(message => {
+                          alert(message);
+                          document.getElementById("generatedLink").value = requestUrl;
+                      })
+                      .catch(error => {
+                          alert(`🚨 Lỗi kết nối: ${error.message}`);
+                      });
+              }
+          }
       }
-
-      var url = urlInput.value.trim();
-      if (!url) {
-        alert("Vui lòng nhập URL!");
-        return;
-      }
-
-      var selectedGift = document.querySelector('input[name="giftOption"]:checked');
-      if (!selectedGift) {
-        alert("Vui lòng chọn một loại Gift!");
-        return;
-      }
-
-      var giftOption = selectedGift.value;
-      let requestUrl = `${urlAppsScript}?${giftOption}=${encodeURIComponent(url)}`;
-
-      fetch(requestUrl)
-        .then(response => response.text())
-        .then(message => {
-          alert(message);
-          document.getElementById("generatedLink").value = requestUrl;
-        })
-        .catch(error => {
-          alert(`🚨 Lỗi kết nối: ${error.message}`);
-        });
-    }
-
+  }
+  
     function copyToClipboard() {
       let copyText = document.getElementById("generatedLink");
       if (!copyText.value) {
