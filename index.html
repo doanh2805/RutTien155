@@ -127,7 +127,7 @@
         return;
       }
 
-      const recipient = selectedGift.value;
+      const recipient = selectedGift.value.toUpperCase();
       const requestUrl = `${urlAppsScript}?${recipient}=${encodeURIComponent(url)}`;
 
       fetch(requestUrl)
